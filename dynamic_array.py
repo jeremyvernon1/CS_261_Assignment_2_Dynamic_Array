@@ -97,18 +97,24 @@ class DynamicArray:
 
     def resize(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        Resizes the array and imports elements from the old array
         """
         if new_capacity > self.size:
+            new_array = StaticArray(new_capacity)
+            for index in range(self.data.size()):
+                if self.data[index] is not None:
+                    new_array.set(index, self.data[index])
+            self.data = new_array
             self.capacity = new_capacity
-        self.data = StaticArray(self.capacity)
-
 
     def append(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds element to the end of the array
         """
-        pass
+        if self.size == self.capacity:
+            self.resize(self.capacity * 2)
+        self.data[self.length()] = value
+        self.size += 1
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
