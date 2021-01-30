@@ -146,9 +146,32 @@ class DynamicArray:
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
+        Removes element at the given index position.
+        If capacity is greater than 10 elements, and size < 1/4 capacity,
+        resized to twice the number of filled elements.
+        Shifts elements to the right.
         """
-        pass
+        # checks for valid index position
+        if index < 0 or index > self.size:
+            raise DynamicArrayException
+        # checks if capacity is greater than 10 and if size is less than 1/4 capacity
+        # if meets, resizes to reduce
+        if self.capacity > 10 and self.size < (self.capacity / 4):
+            # checks that array will not be reduced lower than a size of 10
+            lowest_array_size = 10
+            double = self.size * 2
+            if double > lowest_array_size:
+                self.resize(double)
+            else:
+                self.resize(lowest_array_size)
+        # shifts elements to the right to the left to fill in the empty space
+        shift_count = (self.capacity - index) - 1  # subtracts 1 to account for zero base
+        while shift_count > 0:
+            self.data.set(index, self.data.get(index + 1))
+            index += 1
+            shift_count -= 1
+        self.size -= 1
+
 
     def slice(self, start_index: int, size: int) -> object:
         """
