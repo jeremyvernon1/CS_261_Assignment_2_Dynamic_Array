@@ -99,12 +99,13 @@ class DynamicArray:
         """
         Resizes the array and imports elements from the old array
         """
-        if new_capacity > self.size: # checks that new capacity is not less than filled array
+        # checks that new capacity is greater than 0, and is not less than the filled array
+        if new_capacity > 0 and new_capacity >= self.size:
             # creates a new array, and copies the elements from the old array
             new_array = StaticArray(new_capacity)
-            for index in range(self.data.size()):
-                if self.data[index] is not None:
-                    new_array.set(index, self.data[index])
+            for index in range(self.capacity):
+                if self.data.get(index) is not None:
+                    new_array.set(index, self.data.get(index))
             self.data = new_array
             self.capacity = new_capacity
 
@@ -152,7 +153,7 @@ class DynamicArray:
         Shifts elements to the right.
         """
         # checks for valid index position
-        if index < 0 or index > self.size:
+        if index < 0 or index > self.size or self.data.get(index) is None:
             raise DynamicArrayException
         # checks if capacity is greater than 10 and if size is less than 1/4 capacity
         # if meets, resizes to reduce
@@ -227,6 +228,8 @@ if __name__ == "__main__":
     da.resize(20)
     print(da)
     da.resize(4)
+    print(da)
+    da.resize(8)
     print(da)
 
 
@@ -343,6 +346,13 @@ if __name__ == "__main__":
         da.remove_at_index(0)
         print(da)
 
+    print("\n# remove at index - example 5")
+    da = DynamicArray(["CokxWyd", "aROXptjK"])
+    try:
+        da.remove_at_index(2)
+    except Exception as e:
+        print("Exception raised:", type(e))
+    print(da)
 
     print("\n# slice example 1")
     da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
