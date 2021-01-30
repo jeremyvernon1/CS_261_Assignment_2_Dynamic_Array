@@ -144,7 +144,6 @@ class DynamicArray:
             self.data.set(index, value)
             self.size += 1
 
-
     def remove_at_index(self, index: int) -> None:
         """
         Removes element at the given index position.
@@ -173,12 +172,26 @@ class DynamicArray:
             shift_count -= 1
         self.size -= 1
 
-
     def slice(self, start_index: int, size: int) -> object:
         """
-        TODO: Write this implementation
+        Creates a new dynamic array and appends (size) number of elements starting at start_index
         """
-        return DynamicArray()
+        # checks for valid start index and size
+        if \
+                start_index < 0 or\
+                start_index > (self.size - 1) or\
+                size < 0 or\
+                size > (self.size - start_index):
+            raise DynamicArrayException
+
+        # create a new array and copy sliced elements into it
+        new_array = DynamicArray()
+        for index in range(start_index, (start_index + size)):
+            value = self.data.get(index)
+            if value is not None:
+                new_array.append(value)
+
+        return new_array
 
     def merge(self, second_da: object) -> None:
         """
@@ -205,9 +218,6 @@ class DynamicArray:
         pass
 
 
-
-
-
 # BASIC TESTING
 if __name__ == "__main__":
 
@@ -221,7 +231,6 @@ if __name__ == "__main__":
     da.resize(0)
     print(da.size, da.capacity, da.data)
 
-
     print("\n# resize - example 2")
     da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8])
     print(da)
@@ -232,7 +241,6 @@ if __name__ == "__main__":
     da.resize(8)
     print(da)
 
-
     print("\n# append - example 1")
     da = DynamicArray()
     print(da.size, da.capacity, da.data)
@@ -240,13 +248,11 @@ if __name__ == "__main__":
     print(da.size, da.capacity, da.data)
     print(da)
 
-
     print("\n# append - example 2")
     da = DynamicArray()
     for i in range(9):
         da.append(i + 101)
         print(da)
-
 
     print("\n# append - example 3")
     da = DynamicArray()
@@ -254,7 +260,6 @@ if __name__ == "__main__":
         da.append(i)
     print(da.size)
     print(da.capacity)
-
 
     print("\n# insert_at_index - example 1")
     da = DynamicArray([100])
@@ -295,7 +300,6 @@ if __name__ == "__main__":
             print("Cannot insert value", value, "at index", index)
     print(da)
 
-
     print("\n# remove_at_index - example 1")
     da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
     print(da)
@@ -306,7 +310,6 @@ if __name__ == "__main__":
     da.remove_at_index(2)
     print(da)
 
-
     print("\n# remove_at_index - example 2")
     da = DynamicArray([1024])
     print(da)
@@ -316,7 +319,6 @@ if __name__ == "__main__":
     for i in range(16, -1, -1):
         da.remove_at_index(0)
     print(da)
-
 
     print("\n# remove_at_index - example 3")
     da = DynamicArray()
@@ -341,7 +343,6 @@ if __name__ == "__main__":
         da.remove_at_index(0)
         print(" After remove_at_index(): ", da.size, da.capacity)
 
-
     print("\n# remove at index - example 4")
     da = DynamicArray([1, 2, 3, 4, 5])
     print(da)
@@ -363,14 +364,18 @@ if __name__ == "__main__":
         print("Exception raised:", type(e))
     print(da)
 
-
     print("\n# slice example 1")
     da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
     da_slice = da.slice(1, 3)
     print(da, da_slice, sep="\n")
     da_slice.remove_at_index(0)
     print(da, da_slice, sep="\n")
-
+    da = DynamicArray([1])
+    da_slice = da.slice(0, 1)
+    print(da, da_slice, sep="\n")
+    da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    da_slice = da.slice(2, 3)
+    print(da, da_slice, sep="\n")
 
     print("\n# slice example 2")
     da = DynamicArray([10, 11, 12, 13, 14, 15, 16])
@@ -383,14 +388,12 @@ if __name__ == "__main__":
         except:
             print(" --- exception occurred.")
 
-
     print("\n# merge example 1")
     da = DynamicArray([1, 2, 3, 4, 5])
     da2 = DynamicArray([10, 11, 12, 13])
     print(da)
     da.merge(da2)
     print(da)
-
 
     print("\n# merge example 2")
     da = DynamicArray([1, 2, 3])
@@ -403,6 +406,16 @@ if __name__ == "__main__":
     da3.merge(da)
     print(da3)
 
+    print("\n# merge example 3")
+    da = DynamicArray([1])
+    da2 = DynamicArray([2, 3])
+    da3 = DynamicArray()
+    da.merge(da2)
+    print(da)
+    da2.merge(da3)
+    print(da2)
+    da3.merge(da)
+    print(da3)
 
     print("\n# map example 1")
     da = DynamicArray([1, 5, 10, 15, 20, 25])
@@ -415,23 +428,29 @@ if __name__ == "__main__":
     def double(value):
         return value * 2
 
+
     def square(value):
         return value ** 2
+
 
     def cube(value):
         return value ** 3
 
+
     def plus_one(value):
         return value + 1
+
 
     da = DynamicArray([plus_one, double, square, cube])
     for value in [1, 10, 20]:
         print(da.map(lambda x: x(value)))
 
-
     print("\n# filter example 1")
+
+
     def filter_a(e):
         return e > 10
+
 
     da = DynamicArray([1, 5, 10, 15, 20, 25])
     print(da)
@@ -439,16 +458,17 @@ if __name__ == "__main__":
     print(result)
     print(da.filter(lambda x: (10 <= x <= 20)))
 
-
     print("\n# filter example 2")
+
+
     def is_long_word(word, length):
         return len(word) > length
+
 
     da = DynamicArray("This is a sentence with some long words".split())
     print(da)
     for length in [3, 4, 7]:
         print(da.filter(lambda word: is_long_word(word, length)))
-
 
     print("\n# reduce example 1")
     values = [100, 5, 10, 15, 20, 25]
@@ -456,7 +476,6 @@ if __name__ == "__main__":
     print(da)
     print(da.reduce(lambda x, y: x + y ** 2))
     print(da.reduce(lambda x, y: x + y ** 2, -1))
-
 
     print("\n# reduce example 2")
     da = DynamicArray([100])
