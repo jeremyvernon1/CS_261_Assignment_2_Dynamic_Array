@@ -131,7 +131,7 @@ class DynamicArray:
             raise DynamicArrayException
         else:
             # checks if array is full, and if so, resizes
-            if last_pos == self.data.size() - 1:
+            if last_pos == self.capacity:
                 self.resize(self.capacity * 2)
             # checks if index is occupied, and if so shifts existing elements right
             if self.data.get(index) is not None:
@@ -153,7 +153,7 @@ class DynamicArray:
         Shifts elements to the right.
         """
         # checks for valid index position
-        if index < 0 or index > self.size or self.data.get(index) is None:
+        if index < 0 or index > (self.size - 1) or self.data.get(index) is None:
             raise DynamicArrayException
         # checks if capacity is greater than 10 and if size is less than 1/4 capacity
         # if meets, resizes to reduce
@@ -267,7 +267,10 @@ if __name__ == "__main__":
     print(da)
     da.insert_at_index(1, 600)
     print(da)
-
+    da = DynamicArray([-91865, -12502, 91702])
+    print(da)
+    da.insert_at_index(1, -70756)
+    print(da)
 
     print("\n# insert_at_index example 2")
     da = DynamicArray()
@@ -353,6 +356,13 @@ if __name__ == "__main__":
     except Exception as e:
         print("Exception raised:", type(e))
     print(da)
+    da = DynamicArray([44683, 19377, 90480, -89559])
+    try:
+        da.remove_at_index(4)
+    except Exception as e:
+        print("Exception raised:", type(e))
+    print(da)
+
 
     print("\n# slice example 1")
     da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
