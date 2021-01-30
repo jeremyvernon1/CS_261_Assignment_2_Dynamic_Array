@@ -179,20 +179,20 @@ class DynamicArray:
         # checks for valid start index and size
         array_size = self.size
         if \
-                start_index < 0 or\
-                start_index > (array_size - 1) or\
-                size < 0 or\
-                size > (array_size - start_index):
+                start_index < 0 or \
+                        start_index > (array_size - 1) or \
+                        size < 0 or \
+                        size > (array_size - start_index):
             raise DynamicArrayException
 
         # create a new array and copy sliced elements into it
-        new_array = DynamicArray()
+        slice_new_array = DynamicArray()
         for index in range(start_index, (start_index + size)):
-            value = self.data.get(index)
-            if value is not None:
-                new_array.append(value)
+            slice_value = self.data.get(index)
+            if slice_value is not None:
+                slice_new_array.append(slice_value)
 
-        return new_array
+        return slice_new_array
 
     def merge(self, second_da: object) -> None:
         """
@@ -205,20 +205,26 @@ class DynamicArray:
 
     def map(self, map_func) -> object:
         """
-        TODO: Write this implementation
+        Creates a new dynamic array with the original elements mapped to the results of a function
         """
-        new_array = DynamicArray()
+        map_new_array = DynamicArray()
         for index in range(self.size):
-            value = map_func(self.get_at_index(index))
-            new_array.append(value)
+            map_value = map_func(self.get_at_index(index))
+            map_new_array.append(map_value)
 
-        return new_array
+        return map_new_array
 
     def filter(self, filter_func) -> object:
         """
-        TODO: Write this implementation
+        Creates a new dynamic array with only the elements that pass filter_func
         """
-        pass
+        filter_new_array = DynamicArray()
+        for index in range(self.size):
+            if filter_func(self.get_at_index(index)):
+                filter_value = self.get_at_index(index)
+                filter_new_array.append(filter_value)
+
+        return filter_new_array
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
