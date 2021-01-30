@@ -99,7 +99,8 @@ class DynamicArray:
         """
         Resizes the array and imports elements from the old array
         """
-        if new_capacity > self.size:
+        if new_capacity > self.size: # checks that new capacity is not less than filled array
+            # creates a new array, and copies the elements from the old array
             new_array = StaticArray(new_capacity)
             for index in range(self.data.size()):
                 if self.data[index] is not None:
@@ -111,16 +112,37 @@ class DynamicArray:
         """
         Adds element to the end of the array
         """
+        # checks if array is full, and if so, resizes
         if self.size == self.capacity:
             self.resize(self.capacity * 2)
+        # adds element to the end of the array
         self.data[self.length()] = value
         self.size += 1
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
+        Inserts a value at the given index.
+        If the position is full, the elements to the right are shifted right
         """
-        pass
+        last_pos = self.size
+        # checks if index position is valid
+        if index < 0 or index > last_pos:
+            raise DynamicArrayException
+        else:
+            # checks if array is full, and if so, resizes
+            if last_pos == self.data.size() - 1:
+                self.resize(self.capacity * 2)
+            # checks if index is occupied, and if so shifts existing elements right
+            if self.data.get(index) is not None:
+                iteration_count = (self.size - index)
+                while iteration_count > 0:
+                    self.data.set(last_pos, self.data.get(last_pos - 1))
+                    last_pos -= 1
+                    iteration_count -= 1
+            # adds new element
+            self.data.set(index, value)
+            self.size += 1
+
 
     def remove_at_index(self, index: int) -> None:
         """
