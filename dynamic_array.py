@@ -228,9 +228,22 @@ class DynamicArray:
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
-        TODO: Write this implementation
+        Creates a new dynamic array with the elements after reduce_func has run on the element
         """
-        pass
+        if self.size == 0:
+            return initializer
+        start_range = 0
+        if initializer is None:
+            initializer = self.get_at_index(0)
+            start_range = 1
+
+        reduce_total = 0
+        for index in range(start_range, self.size):
+            temp_value = reduce_func(initializer, self.get_at_index(index))
+            reduce_total += (temp_value - initializer)
+        reduce_total += initializer
+
+        return reduce_total
 
 
 # BASIC TESTING
