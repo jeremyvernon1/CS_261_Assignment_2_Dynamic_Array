@@ -207,7 +207,12 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+        new_array = DynamicArray()
+        for index in range(self.size):
+            value = map_func(self.get_at_index(index))
+            new_array.append(value)
+
+        return new_array
 
     def filter(self, filter_func) -> object:
         """
