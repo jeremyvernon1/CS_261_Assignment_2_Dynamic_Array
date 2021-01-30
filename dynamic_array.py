@@ -177,11 +177,12 @@ class DynamicArray:
         Creates a new dynamic array and appends (size) number of elements starting at start_index
         """
         # checks for valid start index and size
+        array_size = self.size
         if \
                 start_index < 0 or\
-                start_index > (self.size - 1) or\
+                start_index > (array_size - 1) or\
                 size < 0 or\
-                size > (self.size - start_index):
+                size > (array_size - start_index):
             raise DynamicArrayException
 
         # create a new array and copy sliced elements into it
@@ -195,9 +196,12 @@ class DynamicArray:
 
     def merge(self, second_da: object) -> None:
         """
-        TODO: Write this implementation
+        Appends elements from the second array into the first array.
         """
-        pass
+        second_da_size = second_da.size
+        if second_da_size > 0:  # checks that second array is not empty.
+            for index in range(second_da_size):
+                self.append(second_da.get_at_index(index))
 
     def map(self, map_func) -> object:
         """
@@ -409,13 +413,10 @@ if __name__ == "__main__":
     print("\n# merge example 3")
     da = DynamicArray([1])
     da2 = DynamicArray([2, 3])
-    da3 = DynamicArray()
+    print(da)
+    print(da2)
     da.merge(da2)
     print(da)
-    da2.merge(da3)
-    print(da2)
-    da3.merge(da)
-    print(da3)
 
     print("\n# map example 1")
     da = DynamicArray([1, 5, 10, 15, 20, 25])
