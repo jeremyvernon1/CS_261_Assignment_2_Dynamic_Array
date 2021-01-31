@@ -48,10 +48,11 @@ class Bag:
         """
         Removes item from bag
         """
-        for index in range(self.da.length()):
-            if self.da[index] == value:
+        for index in range(self.size()):
+            if self.da.get_at_index(index) == value:
                 self.da.remove_at_index(index)
                 return True
+
         return False
 
     def count(self, value: object) -> int:
@@ -68,14 +69,20 @@ class Bag:
         """
         Clears the bag
         """
-        self = Bag()
+        self.da = DynamicArray()
 
     def equal(self, second_bag: object) -> bool:
         """
-        TODO: Write this implementation
+        Checks if two bags contain the same elements.
+        If they do, returns True. Else, returns False.
         """
-        pass
-
+        if self.size() == second_bag.size():
+            print(self)
+            for index in range(self.size()):
+                if self.da.get_at_index(index) not in second_bag.da:
+                    return False
+            return True
+        return False
 
 
 
