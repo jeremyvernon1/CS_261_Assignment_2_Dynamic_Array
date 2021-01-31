@@ -77,7 +77,6 @@ class Bag:
         If they do, returns True. Else, returns False.
         """
         if self.size() == second_bag.size():
-            print(self)
             for index in range(self.size()):
                 if self.da.get_at_index(index) not in second_bag.da:
                     return False
