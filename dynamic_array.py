@@ -237,13 +237,12 @@ class DynamicArray:
             initializer = self.get_at_index(0)
             start_range = 1
 
-        reduce_total = 0
         for index in range(start_range, self.size):
-            temp_value = reduce_func(initializer, self.get_at_index(index))
-            reduce_total += (temp_value - initializer)
-        reduce_total += initializer
+            initializer += reduce_func(initializer, self.get_at_index(index))
 
-        return reduce_total
+        return initializer
+
+
 
 
 # BASIC TESTING
@@ -509,3 +508,9 @@ if __name__ == "__main__":
     da.remove_at_index(0)
     print(da.reduce(lambda x, y: x + y ** 2))
     print(da.reduce(lambda x, y: x + y ** 2, -1))
+
+    print("\n# reduce example 3")
+    values = ["nozgogve", "sdhirt", "bmaafje", "ml", "vsahv", "ea", "h", "jqqvw", "ldnxc", "nuavuy"]
+    da = DynamicArray(values)
+    print(da)
+    print(da.reduce(lambda x, y: (x + y)))
