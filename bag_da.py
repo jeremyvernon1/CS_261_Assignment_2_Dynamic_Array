@@ -77,11 +77,19 @@ class Bag:
         If they do, returns True. Else, returns False.
         """
         if self.size() == second_bag.size():
-            for index in range(self.size()):
-                if self.da.get_at_index(index) not in second_bag.da:
+            count_a = 0
+            count_b = 0
+            for index1 in range(self.size()):
+                value = self.da.get_at_index(index1)
+                bag_a = self.count(value)
+                bag_b = second_bag.count(value)
+                if bag_a == bag_b:
+                    break
+                else:
                     return False
             return True
         return False
+
 
 
 
@@ -132,3 +140,20 @@ if __name__ == "__main__":
     bag1 = Bag([100, 200, 300, 200])
     bag2 = Bag([100, 200, 30, 100])
     print(bag1.equal(bag2))
+
+    print("\n# equal example 2")
+    bag1 = Bag([1, 2, 2])
+    bag2 = Bag([1, 1, 2])
+    print(bag1, bag2, sep="\n")
+    print(bag1.equal(bag2), bag2.equal(bag1))
+    print("expected result: False, False")
+    bag1 = Bag([10, 20, 20, 30, 40, 50, 60])
+    bag2 = Bag([60, 50, 40, 30, 20, 10, 60])
+    print(bag1, bag2, sep="\n")
+    print(bag1.equal(bag2), bag2.equal(bag1))
+    print("expected result: False, False")
+    bag1 = Bag([10, 20, 60, 30, 40, 50, 60])
+    bag2 = Bag([60, 50, 40, 30, 20, 10, 60])
+    print(bag1, bag2, sep="\n")
+    print(bag1.equal(bag2), bag2.equal(bag1))
+    print("expected result: True, True")

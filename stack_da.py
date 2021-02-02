@@ -73,7 +73,8 @@ class Stack:
         if self.size() < 1:
             raise StackException
         else:
-            stack = self.da.get_at_index(0)
+            last_pos = self.size() - 1
+            stack = self.da.get_at_index(last_pos)
             return stack
 
 

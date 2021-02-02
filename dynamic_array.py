@@ -180,9 +180,9 @@ class DynamicArray:
         array_size = self.size
         if \
                 start_index < 0 or \
-                        start_index > (array_size - 1) or \
-                        size < 0 or \
-                        size > (array_size - start_index):
+                start_index > (array_size - 1) or \
+                size < 0 or \
+                size > (array_size - start_index):
             raise DynamicArrayException
 
         # create a new array and copy sliced elements into it
