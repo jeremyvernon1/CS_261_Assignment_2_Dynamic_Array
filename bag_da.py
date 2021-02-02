@@ -77,15 +77,11 @@ class Bag:
         If they do, returns True. Else, returns False.
         """
         if self.size() == second_bag.size():
-            count_a = 0
-            count_b = 0
             for index1 in range(self.size()):
                 value = self.da.get_at_index(index1)
                 bag_a = self.count(value)
                 bag_b = second_bag.count(value)
-                if bag_a == bag_b:
-                    break
-                else:
+                if bag_a != bag_b:
                     return False
             return True
         return False
