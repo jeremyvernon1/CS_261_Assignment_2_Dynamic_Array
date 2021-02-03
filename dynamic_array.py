@@ -1,8 +1,8 @@
 # Course: CS261 - Data Structures
 # Student Name: Jeremy Vernon
 # Assignment: 2
-# Description:
-# Last revised: 29 Jan 21
+# Description: Creates a Dynamic Array
+# Last revised: 03 Feb 21
 
 
 from static_array import *
@@ -207,7 +207,10 @@ class DynamicArray:
         """
         Creates a new dynamic array with the original elements mapped to the results of a function
         """
+        # creates result array
         map_new_array = DynamicArray()
+
+        # runs map_func from parameter on each element, then adds to result array
         for index in range(self.size):
             map_value = map_func(self.get_at_index(index))
             map_new_array.append(map_value)
@@ -218,7 +221,10 @@ class DynamicArray:
         """
         Creates a new dynamic array with only the elements that pass filter_func
         """
+        # creates result array
         filter_new_array = DynamicArray()
+
+        # runs filter_func from parameter on each element, then adds to result array
         for index in range(self.size):
             if filter_func(self.get_at_index(index)):
                 filter_value = self.get_at_index(index)
@@ -230,13 +236,17 @@ class DynamicArray:
         """
         Creates a new dynamic array with the elements after reduce_func has run on the element
         """
+        # checks for empty array
         if self.size == 0:
             return initializer
+
+        # sets initializer and whether to start at index 0 or index 1
         start_range = 0
         if initializer is None:
             initializer = self.get_at_index(0)
             start_range = 1
 
+        # runs reduce_func from parameter on each element and accumulates the initializer
         for index in range(start_range, self.size):
             initializer = reduce_func(initializer, self.get_at_index(index))
 

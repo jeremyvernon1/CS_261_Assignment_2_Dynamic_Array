@@ -1,8 +1,8 @@
 # Course: CS261 - Data Structures
 # Student Name: Jeremy Vernon
 # Assignment: 2
-# Description:
-# Last revised:
+# Description: Creates a bag
+# Last revised: 03 Feb 21
 
 from dynamic_array import *
 
@@ -38,6 +38,8 @@ class Bag:
         """
         return self.da.length()
 
+    # ------------------------------------------------------------------ #
+
     def add(self, value: object) -> None:
         """
         Adds elements to bag
@@ -57,7 +59,7 @@ class Bag:
 
     def count(self, value: object) -> int:
         """
-        Counts the instances of elements in a bag
+        Counts the instances of a given element in a bag
         """
         count = 0
         for index in range(self.da.size):
@@ -76,14 +78,15 @@ class Bag:
         Checks if two bags contain the same elements.
         If they do, returns True. Else, returns False.
         """
+        # checks if elements have the same number of elements
         if self.size() == second_bag.size():
             for index1 in range(self.size()):
                 value = self.da.get_at_index(index1)
-                bag_a = self.count(value)
-                bag_b = second_bag.count(value)
-                if bag_a != bag_b:
+                bag_a = self.count(value)  # finds the count of the element in the first array,
+                bag_b = second_bag.count(value)  # then compares to count of the element in the second array.
+                if bag_a != bag_b:  # if the two counts (instances) do not match, returns False.
                     return False
-            return True
+            return True  # if array search completes without returning False, returns True.
         return False
 
 

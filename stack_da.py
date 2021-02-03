@@ -1,8 +1,8 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
-# Last revised:
+# Student Name: Jeremy Vernon
+# Assignment: 2
+# Description: Creates a stack
+# Last revised: 03 Feb 21
 
 from dynamic_array import *
 
@@ -50,16 +50,18 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds value to the end of the stack
         """
         self.da.append(value)
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes top of the stack
         """
+        # checks that there is at least one element in the stack
         if self.size() < 1:
             raise StackException
+        # gets value of the top of the stack, then removes and returns the element
         else:
             last_pos = self.size() - 1
             stack = self.da.get_at_index(last_pos)
@@ -68,10 +70,12 @@ class Stack:
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value at the top of the stack
         """
+        # checks that there is at least one element in the stack
         if self.size() < 1:
             raise StackException
+        # gets value of the top of the stack, then returns it
         else:
             last_pos = self.size() - 1
             stack = self.da.get_at_index(last_pos)

@@ -1,8 +1,8 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
-# Last revised:
+# Student Name: Jeremy Vernon
+# Assignment: 2
+# Description: Creates a queue
+# Last revised: 03 Feb 21
 
 from dynamic_array import *
 
@@ -50,16 +50,18 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds value to the end of the queue
         """
         self.da.append(value)
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Removes element at the beginning of the queue, and returns that element
         """
+        # checks if array has at least one element
         if self.size() < 1:
             raise QueueException
+        # gets value to return and removes element
         else:
             dequeue = self.da.get_at_index(0)
             self.da.remove_at_index(0)
