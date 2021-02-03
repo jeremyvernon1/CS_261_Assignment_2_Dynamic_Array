@@ -238,7 +238,7 @@ class DynamicArray:
             start_range = 1
 
         for index in range(start_range, self.size):
-            initializer += reduce_func(initializer, self.get_at_index(index))
+            initializer = reduce_func(initializer, self.get_at_index(index))
 
         return initializer
 
